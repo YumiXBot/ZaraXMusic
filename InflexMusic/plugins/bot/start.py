@@ -1,11 +1,13 @@
 import time
+import random
 
 from pyrogram import filters
 from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from youtubesearchpython.__future__ import VideosSearch
+from youtubesearchpython.future import VideosSearch
 
 import config
+from config import START_IMG_URL
 from InflexMusic import app
 from InflexMusic.misc import _boot_
 from InflexMusic.plugins.sudo.sudoers import sudoers_list
@@ -33,7 +35,7 @@ async def start_pm(client, message: Message, _):
         if name[0:4] == "help":
             keyboard = help_pannel(_)
             return await message.reply_photo(
-                photo=config.START_IMG_URL,
+                photo=random.choice(START_IMG_URL),
                 caption=_["help_1"].format(config.SUPPORT_GROUP),
                 reply_markup=keyboard,
             )
@@ -88,7 +90,7 @@ async def start_pm(client, message: Message, _):
             photo=random.choice(START_IMG_URL),
             caption=_["start_2"].format(message.from_user.mention, app.mention),
             reply_markup=InlineKeyboardMarkup(out),
-            )
+        )
         if await is_on_off(2):
             return await app.send_message(
                 chat_id=config.LOG_GROUP_ID,
@@ -102,7 +104,7 @@ async def start_gp(client, message: Message, _):
     out = start_panel(_)
     uptime = int(time.time() - _boot_)
     await message.reply_photo(
-        photo=config.START_IMG_URL,
+        photo=random.choice(START_IMG_URL),
         caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
         reply_markup=InlineKeyboardMarkup(out),
     )
@@ -137,7 +139,7 @@ async def welcome(client, message: Message):
 
                 out = start_panel(_)
                 await message.reply_photo(
-                    photo=config.START_IMG_URL,
+                    photo=random.choice(START_IMG_URL),
                     caption=_["start_3"].format(
                         message.from_user.first_name,
                         app.mention,
